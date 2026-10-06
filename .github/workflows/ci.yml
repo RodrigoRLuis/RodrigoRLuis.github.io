@@ -1,0 +1,51 @@
+name: Job dependencies
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build_app_a:
+    name: Build application A
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Building A..."
+          sleep 5
+
+  build_app_b:
+    name: Build application B
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Building B..."
+          sleep 20
+
+  test_app_a:
+    name: Test application A
+    runs-on: ubuntu-latest
+    needs: [build_app_a, build_app_b]
+    steps:
+      - run: echo "Testing A..."
+
+  test_app_b:
+    name: Test application B
+    runs-on: ubuntu-latest
+    needs: [build_app_a, build_app_b]
+    steps:
+      - run: echo "Testing B..."
+
+  deploy_app_a:
+    name: Deploy application A
+    runs-on: ubuntu-latest
+    needs: [test_app_a, test_app_b]
+    steps:
+      - run: echo "Deploying A..."
+
+  deploy_app_b:
+    name: Deploy application B
+    runs-on: ubuntu-latest
+    needs: [test_app_a, test_app_b]
+    steps:
+      - run: echo "Deploying B..."
