@@ -1,11 +1,9 @@
-#!/usr/bin/env python3
-"""Publish only the authenticated user's historical GitHub commit total."""
 import json
 import os
 import sys
-from datetime import datetime, timezone
-from urllib.request import Request, urlopen
+from datetime import datetime, timedelta, timezone
 from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
 
 API_URL = "https://api.github.com/graphql"
 USERNAME = os.environ.get("GITHUB_USERNAME", "RodrigoRLuis")
@@ -15,90 +13,93 @@ if not TOKEN:
     print("Missing GH_TOKEN secret.", file=sys.stderr)
     sys.exit(1)
 
+
 def graphql(query, variables):
-    payload = json.dumps({"query": query, "variables": variables}).encode("utf-8")
+    payload = json.dumps({
+        "query": query,
+        "variables": variables
+    }).encode("utf-8")
+
     request = Request(
         API_URL,
         data=payload,
         headers={
             "Authorization": f"Bearer {TOKEN}",
             "Content-Type": "application/json",
-            "Accept": "application/vnd.github+json",
-            "User-Agent": "github-pages-commit-counter",
+            "User-Agent": "github-commit-counter"
         },
-        method="POST",
+        method="POST"
     )
+
     try:
-        with urlopen(request, timeout=30) as response:
+        with urlopen(request) as response:
             result = json.loads(response.read().decode("utf-8"))
-    except (HTTPError, URLError) as exc:
-        print(f"GitHub API request failed: {exc}", file=sys.stderr)
+    except (HTTPError, URLError) as error:
+        print(f"GitHub request failed: {error}", file=sys.stderr)
         sys.exit(1)
 
     if result.get("errors"):
-        print("GitHub GraphQL error: " + json.dumps(result["errors"]), file=sys.stderr)
+        print(f"GitHub GraphQL error: {result['errors']}", file=sys.stderr)
         sys.exit(1)
+
     return result["data"]
 
-profile = graphql(
-    """
-    query {
-      viewer {
-        login
-        createdAt
-      }
-    }
-    """,
-    {},
-).get("viewer")
 
-if not profile or profile["login"].lower() != USERNAME.lower():
-    print("O token não corresponde ao utilizador configurado.", file=sys.stderr)
-    sys.exit(1)
-
-created_year = datetime.fromisoformat(profile["createdAt"].replace("Z", "+00:00")).year
-current_year = datetime.now(timezone.utc).year
-total = 0
-
-# GitHub's contribution collection supports a maximum one-year interval.
-# Include private contributions; only the aggregate total is written to the site.
 query = """
 query($from: DateTime!, $to: DateTime!) {
   viewer {
-    contributionsCollection(
-      from: $from
-      to: $to
-      includePrivateContributions: true
-    ) {
+    login
+    contributionsCollection(from: $from, to: $to) {
       totalCommitContributions
+      restrictedContributionsCount
+      doesIncludePrivateContributions
     }
   }
 }
 """
 
-for year in range(created_year, current_year + 1):
-    from_date = f"{year}-01-01T00:00:00Z"
-    to_date = f"{year + 1}-01-01T00:00:00Z"
-    data = graphql(query, {"from": from_date, "to": to_date})
-    user = data.get("viewer")
+now = datetime.now(timezone.utc)
+start = datetime(2000, 1, 1, tzinfo=timezone.utc)
+total_commits = 0
+includes_private = False
+current = start
 
-    if not user:
-        print("Could not read contribution data.", file=sys.stderr)
+while current < now:
+    end = min(current + timedelta(days=365), now)
+
+    data = graphql(query, {
+        "from": current.isoformat(),
+        "to": end.isoformat()
+    })
+
+    viewer = data["viewer"]
+
+    if viewer["login"].lower() != USERNAME.lower():
+        print("The token does not belong to the configured user.", file=sys.stderr)
         sys.exit(1)
-    count = user["contributionsCollection"]["totalCommitContributions"]
-    total += count
-    print(f"{year}: {count} commits")
+
+    contributions = viewer["contributionsCollection"]
+    total_commits += contributions["totalCommitContributions"]
+    includes_private = (
+        includes_private
+        or contributions["doesIncludePrivateContributions"]
+    )
+
+    current = end + timedelta(seconds=1)
 
 output = {
-    "username": profile["login"],
+    "username": USERNAME,
     "period": "all-time",
-    "total_commits": total,
-    "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+    "total_commits": total_commits,
+    "updated_at": now.isoformat(),
+    "includes_private_contributions": includes_private
 }
 
 os.makedirs("data", exist_ok=True)
+
 with open("data/commits.json", "w", encoding="utf-8") as file:
-    json.dump(output, file, ensure_ascii=False, indent=2)
+    json.dump(output, file, indent=2, ensure_ascii=False)
     file.write("\n")
 
-print(f"Published aggregate total: {total}")
+print(f"Total commits: {total_commits}")
+print(f"Private contributions included: {includes_private}")
