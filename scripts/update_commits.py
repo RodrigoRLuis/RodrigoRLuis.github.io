@@ -41,12 +41,19 @@ def graphql(query, variables):
     return result["data"]
 
 profile = graphql(
-    "query($login: String!) { user(login: $login) { login createdAt } }",
-    {"login": USERNAME},
-).get("user")
+    """
+    query {
+      viewer {
+        login
+        createdAt
+      }
+    }
+    """,
+    {},
+).get("viewer")
 
-if not profile:
-    print(f"GitHub user {USERNAME!r} was not found or is not visible.", file=sys.stderr)
+if not profile or profile["login"].lower() != USERNAME.lower():
+    print("O token não corresponde ao utilizador configurado.", file=sys.stderr)
     sys.exit(1)
 
 created_year = datetime.fromisoformat(profile["createdAt"].replace("Z", "+00:00")).year
@@ -56,8 +63,8 @@ total = 0
 # GitHub's contribution collection supports a maximum one-year interval.
 # Include private contributions; only the aggregate total is written to the site.
 query = """
-query($login: String!, $from: DateTime!, $to: DateTime!) {
-  user(login: $login) {
+query($from: DateTime!, $to: DateTime!) {
+  viewer {
     contributionsCollection(
       from: $from
       to: $to
@@ -72,10 +79,11 @@ query($login: String!, $from: DateTime!, $to: DateTime!) {
 for year in range(created_year, current_year + 1):
     from_date = f"{year}-01-01T00:00:00Z"
     to_date = f"{year + 1}-01-01T00:00:00Z"
-    data = graphql(query, {"login": USERNAME, "from": from_date, "to": to_date})
-    user = data.get("user")
+    data = graphql(query, {"from": from_date, "to": to_date})
+    user = data.get("viewer")
+
     if not user:
-        print(f"Could not read contribution data for {USERNAME!r}.", file=sys.stderr)
+        print("Could not read contribution data.", file=sys.stderr)
         sys.exit(1)
     count = user["contributionsCollection"]["totalCommitContributions"]
     total += count
