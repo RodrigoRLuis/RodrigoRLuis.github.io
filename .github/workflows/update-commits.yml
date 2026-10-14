@@ -1,0 +1,41 @@
+name: Update GitHub commit total
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 5 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out site repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Calculate historical commit total
+        env:
+          GH_TOKEN: ${{ secrets.GH_COMMIT_READ_TOKEN }}
+          GITHUB_USERNAME: RodrigoRLuis
+        run: python scripts/update_commits.py
+
+      - name: Publish totals JSON
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/commits.json
+          if git diff --cached --quiet; then
+            echo "Commit total has not changed."
+          else
+            git commit -m "Update GitHub commit total"
+            git push
+          fi
