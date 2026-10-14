@@ -3,9 +3,21 @@ name: Deploy static site to GitHub Pages
 on:
   push:
     branches: [ "main" ]  # or "master" if that is your default branch
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Update GitHub commit total"]
+    types: [completed]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  
 jobs:
   build:
+    if: >
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,6 +32,9 @@ jobs:
           path: .  # location of your static files
 
   deploy:
+    if: >
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success'
     needs: build
     permissions:
       pages: write

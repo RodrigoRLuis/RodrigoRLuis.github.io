@@ -16,12 +16,17 @@
         <span class="logo">RL</span>
         <span>Rodrigo Luís</span>
       </a>
+
       <nav class="links" aria-label="Navegação">
-        <a href="#sobre">Sobre</a>
-        <a href="#projetos">Projetos</a>
-        <a href="#skills">Skills</a>
-        <a href="#contacto">Contacto</a>
+        <a href="#sobre" data-i18n="about">Sobre</a>
+        <a href="#projetos" data-i18n="projectsTitle">Projetos</a>
+        <a href="#skills" data-i18n="skillsTitle">Skills</a>
+        <a href="#contacto" data-i18n="contactTitle">Contacto</a>
       </nav>
+
+      <button id="language-toggle" class="language-toggle" type="button">
+        EN
+      </button>
     </div>
   </header>
 
@@ -29,20 +34,37 @@
     <section class="hero">
       <div class="hero-grid">
         <div class="panel hero-main">
-          <span class="tag"><span class="dot"></span> Disponível para colaboração</span>
+          <span class="tag">
+            <span class="dot"></span>
+            <span data-i18n="available">Disponível para colaboração</span>
+          </span>
 
           <div class="hero-intro">
-            <img class="profile-photo" src="images/profile.jpeg" alt="Foto de perfil" />
+            <img
+              class="profile-photo"
+              src="images/profile.jpeg"
+              alt="Foto de perfil"
+              data-i18n-alt="profileAlt"
+            />
           </div>
 
-          <h1>Olá, eu sou o <span style="color:var(--accent2)">Rodrigo</span>.</h1>
-          <p class="lead">
-            Bem-vindo ao meu perfil pessoal. Aqui poderá encontrar uma breve apresentação,
-            os meus projetos, competências e formas de contacto.
+          <h1>
+            <span data-i18n="hello">Olá, eu sou o</span>
+            <span style="color:var(--accent2)"> Rodrigo</span>.
+          </h1>
+
+          <p class="lead" data-i18n="welcome">
+            Bem-vindo ao meu perfil pessoal. Aqui poderá encontrar uma breve
+            apresentação, os meus projetos, competências e formas de contacto.
           </p>
+
           <div class="cta">
-            <a class="btn primary" href="#projetos">Ver projetos</a>
-            <a class="btn ghost" href="#contacto">Contactar</a>
+            <a class="btn primary" href="#projetos" data-i18n="projects">
+              Ver projetos
+            </a>
+            <a class="btn ghost" href="#contacto" data-i18n="contact">
+              Contactar
+            </a>
           </div>
         </div>
 
@@ -50,33 +72,34 @@
           <div class="profile-card">
             <div class="avatar avatar-code" aria-label="Código">&lt;/&gt;</div>
             <h2>Rodrigo Luís</h2>
-            <p>Estudante de Engenharia Informática</p>
-            <p>@ Universidade de Coimbra</p>
+            <p data-i18n="student">Estudante de Engenharia Informática</p>
+            <p data-i18n="university">@ Universidade de Coimbra</p>
           </div>
 
           <div class="mini-grid">
-            
             <div class="mini metric">
               <strong>4+</strong>
-              <span>anos de experiência</span>
+              <span data-i18n="experience">anos de experiência</span>
             </div>
 
             <div class="mini metric">
               <strong>6+</strong>
-              <span>projetos concluídos</span>
+              <span data-i18n="completed">projetos concluídos</span>
             </div>
 
             <div class="mini metric">
               <strong>5+</strong>
-              <span>áreas exploradas</span>
+              <span data-i18n="areas">áreas exploradas</span>
             </div>
 
             <div class="mini metric">
-              <strong id="github-commits">...</strong>
-              <span>commits no GitHub até à data</span>
-              <small id="github-commits-caption">A analisar o histórico...</small>
-            </div>
-
+              <strong id="github-commits">—</strong>
+              <span data-i18n="githubCommits">
+                commits no GitHub até à data
+              </span>
+              <small id="github-commits-caption">
+                A analisar o histórico...
+              </small>
             </div>
           </div>
         </aside>
@@ -85,37 +108,50 @@
 
     <section id="sobre">
       <div class="section-title">
-        <h3>Sobre mim</h3>
+        <h3 data-i18n="about">Sobre mim</h3>
       </div>
+
       <div class="cards">
         <article class="card">
-          <h4>Quem sou</h4>
-          <p>Sou estudante de Engenharia Informática, com foco em Engenharia de Software. Tenho especial interesse em programação, sistemas e videojogos.</p>
+          <h4 data-i18n="who">Quem sou</h4>
+          <p data-i18n="whoText">
+            Sou estudante de Engenharia Informática, com foco em Engenharia de
+            Software. Tenho especial interesse em programação, sistemas e
+            videojogos.
+          </p>
         </article>
+
         <article class="card">
-          <h4>O que faço</h4>
-          <p>Tenho explorado várias áreas da informática, sobretudo sistemas operativos, sistemas distribuídos, compiladores, engenharia de software e jogos digitais.</p>
+          <h4 data-i18n="what">O que faço</h4>
+          <p data-i18n="whatText">
+            Tenho explorado várias áreas da informática, sobretudo sistemas
+            operativos, sistemas distribuídos, compiladores, engenharia de
+            software e jogos digitais.
+          </p>
         </article>
+
         <article class="card">
-          <h4>O que valorizo</h4>
-          <p>Boa comunicação, empenho, honestidade, humildade e boa energia.</p>
+          <h4 data-i18n="values">O que valorizo</h4>
+          <p data-i18n="valuesText">
+            Boa comunicação, empenho, honestidade, humildade e boa energia.
+          </p>
         </article>
       </div>
     </section>
 
     <section id="projetos">
       <div class="section-title">
-        <h3>Projetos</h3>
+        <h3 data-i18n="projectsTitle">Projetos</h3>
       </div>
 
       <div class="project-grid">
         <article class="project-card repo-card" data-repo="https://github.com/RodrigoRLuis/sd_proj">
           <div class="project-top">
             <span class="project-badge">GitHub</span>
-            <a class="project-link repo-open" href="#" target="_blank" rel="noopener">Abrir</a>
+            <a class="project-link repo-open" href="#" target="_blank" rel="noopener" data-i18n="open">Abrir</a>
           </div>
-          <h4 class="repo-name">A carregar...</h4>
-          <p class="repo-desc">A descrição do repositório será carregada automaticamente.</p>
+          <h4 class="repo-name" data-i18n="loading">A carregar...</h4>
+          <p class="repo-desc" data-i18n="repoLoading">A descrição será carregada automaticamente.</p>
           <div class="repo-meta">
             <span class="repo-chip repo-lang">Linguagem: —</span>
             <span class="repo-chip repo-stars">★ —</span>
@@ -126,10 +162,10 @@
         <article class="project-card repo-card" data-repo="https://github.com/RodrigoRLuis/ProjetoSO">
           <div class="project-top">
             <span class="project-badge">GitHub</span>
-            <a class="project-link repo-open" href="#" target="_blank" rel="noopener">Abrir</a>
+            <a class="project-link repo-open" href="#" target="_blank" rel="noopener" data-i18n="open">Abrir</a>
           </div>
-          <h4 class="repo-name">A carregar...</h4>
-          <p class="repo-desc">A descrição do repositório será carregada automaticamente.</p>
+          <h4 class="repo-name" data-i18n="loading">A carregar...</h4>
+          <p class="repo-desc" data-i18n="repoLoading">A descrição será carregada automaticamente.</p>
           <div class="repo-meta">
             <span class="repo-chip repo-lang">Linguagem: —</span>
             <span class="repo-chip repo-stars">★ —</span>
@@ -140,10 +176,10 @@
         <article class="project-card repo-card" data-repo="https://github.com/RodrigoRLuis/ECAC_TP1">
           <div class="project-top">
             <span class="project-badge">GitHub</span>
-            <a class="project-link repo-open" href="#" target="_blank" rel="noopener">Abrir</a>
+            <a class="project-link repo-open" href="#" target="_blank" rel="noopener" data-i18n="open">Abrir</a>
           </div>
-          <h4 class="repo-name">A carregar...</h4>
-          <p class="repo-desc">A descrição do repositório será carregada automaticamente.</p>
+          <h4 class="repo-name" data-i18n="loading">A carregar...</h4>
+          <p class="repo-desc" data-i18n="repoLoading">A descrição será carregada automaticamente.</p>
           <div class="repo-meta">
             <span class="repo-chip repo-lang">Linguagem: —</span>
             <span class="repo-chip repo-stars">★ —</span>
@@ -154,10 +190,10 @@
         <article class="project-card repo-card" data-repo="https://github.com/Bent0-o/projetobd">
           <div class="project-top">
             <span class="project-badge">GitHub</span>
-            <a class="project-link repo-open" href="#" target="_blank" rel="noopener">Abrir</a>
+            <a class="project-link repo-open" href="#" target="_blank" rel="noopener" data-i18n="open">Abrir</a>
           </div>
-          <h4 class="repo-name">A carregar...</h4>
-          <p class="repo-desc">A descrição do repositório será carregada automaticamente.</p>
+          <h4 class="repo-name" data-i18n="loading">A carregar...</h4>
+          <p class="repo-desc" data-i18n="repoLoading">A descrição será carregada automaticamente.</p>
           <div class="repo-meta">
             <span class="repo-chip repo-lang">Linguagem: —</span>
             <span class="repo-chip repo-stars">★ —</span>
@@ -168,10 +204,10 @@
         <article class="project-card repo-card" data-repo="https://github.com/Ricardo-Silva1611/ProjetoFIA">
           <div class="project-top">
             <span class="project-badge">GitHub</span>
-            <a class="project-link repo-open" href="#" target="_blank" rel="noopener">Abrir</a>
+            <a class="project-link repo-open" href="#" target="_blank" rel="noopener" data-i18n="open">Abrir</a>
           </div>
-          <h4 class="repo-name">A carregar...</h4>
-          <p class="repo-desc">A descrição do repositório será carregada automaticamente.</p>
+          <h4 class="repo-name" data-i18n="loading">A carregar...</h4>
+          <p class="repo-desc" data-i18n="repoLoading">A descrição será carregada automaticamente.</p>
           <div class="repo-meta">
             <span class="repo-chip repo-lang">Linguagem: —</span>
             <span class="repo-chip repo-stars">★ —</span>
@@ -183,8 +219,9 @@
 
     <section id="skills">
       <div class="section-title">
-        <h3>Skills</h3>
+        <h3 data-i18n="skillsTitle">Skills</h3>
       </div>
+
       <div class="skills">
         <span class="skill">Python</span>
         <span class="skill">Java</span>
@@ -199,30 +236,22 @@
 
     <section id="contacto" class="contact-section">
       <div class="section-title">
-        <h3>Contacto</h3>
+        <h3 data-i18n="contactTitle">Contacto</h3>
       </div>
 
       <div class="card contact-card">
         <p>
-          Email:
+          <span data-i18n="email">Email:</span>
           <a href="mailto:rodrigoluis@student.dei.uc.pt">
             rodrigoluis@student.dei.uc.pt
           </a>
         </p>
 
-        <a
-          class="link"
-          href="https://github.com/rodrigorluis"
-          target="_blank"
-          rel="noopener noreferrer">
+        <a class="link" href="https://github.com/rodrigorluis" target="_blank" rel="noopener noreferrer">
           GitHub
         </a>
 
-        <a
-          class="linkedin-link"
-          href="https://www.linkedin.com/in/rodrigo-luís"
-          target="_blank"
-          rel="noopener noreferrer">
+        <a class="linkedin-link" href="https://www.linkedin.com/in/rodrigo-luís" target="_blank" rel="noopener noreferrer">
           LinkedIn
         </a>
       </div>
@@ -230,34 +259,104 @@
   </main>
 
   <script>
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener("click", event => {
-        const id = link.getAttribute("href");
+    const translations = {
+      pt: {
+        available: "Disponível para colaboração",
+        hello: "Olá, eu sou o",
+        welcome: "Bem-vindo ao meu perfil pessoal. Aqui poderá encontrar uma breve apresentação, os meus projetos, competências e formas de contacto.",
+        projects: "Ver projetos",
+        contact: "Contactar",
+        student: "Estudante de Engenharia Informática",
+        university: "@ Universidade de Coimbra",
+        experience: "anos de experiência",
+        completed: "projetos concluídos",
+        areas: "áreas exploradas",
+        githubCommits: "commits no GitHub até à data",
+        about: "Sobre mim",
+        who: "Quem sou",
+        what: "O que faço",
+        values: "O que valorizo",
+        whoText: "Sou estudante de Engenharia Informática, com foco em Engenharia de Software. Tenho especial interesse em programação, sistemas e videojogos.",
+        whatText: "Tenho explorado várias áreas da informática, sobretudo sistemas operativos, sistemas distribuídos, compiladores, engenharia de software e jogos digitais.",
+        valuesText: "Boa comunicação, empenho, honestidade, humildade e boa energia.",
+        projectsTitle: "Projetos",
+        skillsTitle: "Skills",
+        contactTitle: "Contacto",
+        email: "Email:",
+        open: "Abrir",
+        loading: "A carregar...",
+        repoLoading: "A descrição será carregada automaticamente.",
+        noDescription: "Sem descrição disponível.",
+        unavailable: "Não foi possível carregar os dados deste repositório.",
+        language: "Linguagem",
+        updated: "Atualizado",
+        updatedOn: "Atualizado em",
+        unavailableData: "Dados temporariamente indisponíveis",
+        profileAlt: "Foto de perfil"
+      },
+      en: {
+        available: "Open to collaboration",
+        hello: "Hello, I am",
+        welcome: "Welcome to my personal profile. Here you can find a brief introduction, my projects, skills and contact details.",
+        projects: "View projects",
+        contact: "Contact me",
+        student: "Computer Engineering student",
+        university: "@ University of Coimbra",
+        experience: "years of experience",
+        completed: "completed projects",
+        areas: "areas explored",
+        githubCommits: "GitHub commits to date",
+        about: "About me",
+        who: "Who I am",
+        what: "What I do",
+        values: "What I value",
+        whoText: "I am a Computer Engineering student focused on Software Engineering, with a particular interest in programming, systems and video games.",
+        whatText: "I have explored several areas of computing, especially operating systems, distributed systems, compilers, software engineering and digital games.",
+        valuesText: "Good communication, commitment, honesty, humility and positive energy.",
+        projectsTitle: "Projects",
+        skillsTitle: "Skills",
+        contactTitle: "Contact",
+        email: "Email:",
+        open: "Open",
+        loading: "Loading...",
+        repoLoading: "The description will be loaded automatically.",
+        noDescription: "No description available.",
+        unavailable: "Unable to load repository data.",
+        language: "Language",
+        updated: "Updated",
+        updatedOn: "Updated on",
+        unavailableData: "Data temporarily unavailable",
+        profileAlt: "Profile picture"
+      }
+    };
 
-        if (id === "#top") {
-          event.preventDefault();
+    let currentLanguage = localStorage.getItem("language") || "pt";
+    const languageToggle = document.getElementById("language-toggle");
 
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-          });
+    function t(key) {
+      return translations[currentLanguage][key] || key;
+    }
 
-          history.pushState(null, "", "#top");
-          return;
-        }
+    function applyLanguage(language) {
+      currentLanguage = language;
+      localStorage.setItem("language", language);
+      document.documentElement.lang = language === "pt" ? "pt-PT" : "en";
+      languageToggle.textContent = language === "pt" ? "EN" : "PT";
 
-        const target = document.querySelector(id);
-        if (!target) return;
-
-        event.preventDefault();
-
-        target.scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-
-        history.pushState(null, "", id);
+      document.querySelectorAll("[data-i18n]").forEach(element => {
+        element.textContent = t(element.dataset.i18n);
       });
+
+      document.querySelectorAll("[data-i18n-alt]").forEach(element => {
+        element.alt = t(element.dataset.i18nAlt);
+      });
+
+      document.querySelectorAll(".repo-card").forEach(loadRepoCard);
+      loadGitHubCommits();
+    }
+
+    languageToggle.addEventListener("click", () => {
+      applyLanguage(currentLanguage === "pt" ? "en" : "pt");
     });
 
     async function loadRepoCard(card) {
@@ -272,59 +371,94 @@
       const repoStars = card.querySelector(".repo-stars");
       const repoUpdated = card.querySelector(".repo-updated");
 
+      repoName.textContent = t("loading");
+      repoOpen.textContent = t("open");
+
       try {
         const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error("Falha ao carregar repositório");
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const repo = await response.json();
+
         repoName.textContent = repo.name;
-        repoDesc.textContent = repo.description || "Sem descrição disponível.";
+        repoDesc.textContent = repo.description || t("noDescription");
         repoOpen.href = repo.html_url;
-        repoLang.textContent = `Linguagem: ${repo.language || "—"}`;
+        repoLang.textContent = `${t("language")}: ${repo.language || "—"}`;
         repoStars.textContent = `★ ${repo.stargazers_count}`;
-        repoUpdated.textContent = `Atualizado: ${new Date(repo.updated_at).toLocaleDateString("pt-PT")}`;
-      } catch {
-        repoName.textContent = repoPath.split("/")[1] || "Repositório";
-        repoDesc.textContent = "Não foi possível carregar os dados deste repositório.";
+        repoUpdated.textContent = `${t("updated")}: ${
+          new Date(repo.updated_at).toLocaleDateString(
+            currentLanguage === "pt" ? "pt-PT" : "en-GB"
+          )
+        }`;
+      } catch (error) {
+        console.error(error);
+        repoName.textContent = repoPath.split("/")[1] || "Repository";
+        repoDesc.textContent = t("unavailable");
         repoOpen.href = repoUrl;
-        repoLang.textContent = "Linguagem: —";
+        repoLang.textContent = `${t("language")}: —`;
         repoStars.textContent = "★ —";
-        repoUpdated.textContent = "Atualizado: —";
+        repoUpdated.textContent = `${t("updated")}: —`;
       }
     }
 
-    document.querySelectorAll(".repo-card").forEach(loadRepoCard);
-
-    
     async function loadGitHubCommits() {
       const commitsElement = document.getElementById("github-commits");
       const captionElement = document.getElementById("github-commits-caption");
 
       try {
-        const response = await fetch("data/commits.json", {
+        const response = await fetch(`data/commits.json?v=${Date.now()}`, {
           cache: "no-store"
         });
 
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const data = await response.json();
 
-        commitsElement.textContent = data.total_commits.toLocaleString("pt-PT");
-        captionElement.textContent = `Atualizado em ${new Date(data.updated_at).toLocaleDateString("pt-PT")}`;
+        if (!Number.isFinite(data.total_commits)) {
+          throw new Error("Invalid commit total");
+        }
 
+        commitsElement.textContent = data.total_commits.toLocaleString(
+          currentLanguage === "pt" ? "pt-PT" : "en-GB"
+        );
+
+        captionElement.textContent = `${t("updatedOn")} ${
+          new Date(data.updated_at).toLocaleDateString(
+            currentLanguage === "pt" ? "pt-PT" : "en-GB"
+          )
+        }`;
       } catch (error) {
-        console.error("Erro ao carregar o total de commits:", error);
+        console.error("Error loading commits:", error);
         commitsElement.textContent = "—";
-        captionElement.textContent = "Dados temporariamente indisponíveis";
+        captionElement.textContent = t("unavailableData");
       }
     }
 
-    loadGitHubCommits();
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener("click", event => {
+        const id = link.getAttribute("href");
 
+        if (id === "#top") {
+          event.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          history.pushState(null, "", "#top");
+          return;
+        }
+
+        const target = document.querySelector(id);
+        if (!target) return;
+
+        event.preventDefault();
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+        history.pushState(null, "", id);
+      });
+    });
+
+    applyLanguage(currentLanguage);
   </script>
-
 </body>
 
 </html>
