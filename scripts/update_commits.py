@@ -52,7 +52,6 @@ query($from: DateTime!, $to: DateTime!) {
     contributionsCollection(from: $from, to: $to) {
       totalCommitContributions
       restrictedContributionsCount
-      doesIncludePrivateContributions
     }
   }
 }
@@ -61,7 +60,6 @@ query($from: DateTime!, $to: DateTime!) {
 now = datetime.now(timezone.utc)
 start = datetime(2000, 1, 1, tzinfo=timezone.utc)
 total_commits = 0
-includes_private = False
 current = start
 
 while current < now:
@@ -80,10 +78,6 @@ while current < now:
 
     contributions = viewer["contributionsCollection"]
     total_commits += contributions["totalCommitContributions"]
-    includes_private = (
-        includes_private
-        or contributions["doesIncludePrivateContributions"]
-    )
 
     current = end + timedelta(seconds=1)
 
@@ -92,7 +86,6 @@ output = {
     "period": "all-time",
     "total_commits": total_commits,
     "updated_at": now.isoformat(),
-    "includes_private_contributions": includes_private
 }
 
 os.makedirs("data", exist_ok=True)
@@ -102,4 +95,3 @@ with open("data/commits.json", "w", encoding="utf-8") as file:
     file.write("\n")
 
 print(f"Total commits: {total_commits}")
-print(f"Private contributions included: {includes_private}")
